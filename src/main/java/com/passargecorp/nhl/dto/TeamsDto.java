@@ -1,17 +1,16 @@
 package com.passargecorp.nhl.dto;
 
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@AllArgsConstructor
-@Getter
 @NoArgsConstructor
+@Getter
+@AllArgsConstructor
 @ToString
-public class GameDate {
+public class TeamsDto {
 
-    private int totalItems;
-    private List<Game> games;
+    private TeamDto away;
+    private TeamDto home;
 }

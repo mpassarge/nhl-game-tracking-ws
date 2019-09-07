@@ -5,7 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
-import com.passargecorp.nhl.dto.Team;
+import com.passargecorp.nhl.dto.TeamDto;
 import java.io.IOException;
 
 public class TeamDeserialization extends StdDeserializer {
@@ -31,6 +31,6 @@ public class TeamDeserialization extends StdDeserializer {
         final int teamId = team.get("id").asInt();
         final String teamName = team.get("name").asText();
 
-        return new Team(teamId, teamName, score);
+        return new TeamDto(teamId, teamName, score);
     }
 }

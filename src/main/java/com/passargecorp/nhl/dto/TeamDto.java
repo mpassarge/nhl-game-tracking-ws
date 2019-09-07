@@ -12,7 +12,7 @@ import lombok.ToString;
 @JsonDeserialize(using = TeamDeserialization.class)
 @NoArgsConstructor
 @ToString
-public class Team {
+public class TeamDto {
 
     private int id;
     private String name;
