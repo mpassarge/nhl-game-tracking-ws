@@ -3,10 +3,12 @@ package com.passargecorp.nhl.entity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-@Getter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@ToString
 public class TeamEntity {
 
     private int id;

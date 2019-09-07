@@ -9,7 +9,7 @@ import com.passargecorp.nhl.entity.GameEntity;
 import com.passargecorp.nhl.entity.StatusEntity;
 import com.passargecorp.nhl.entity.TeamEntity;
 
-public final class EntityGameMapper {
+public final class GameEntityMapper {
 
     public static GameEntity gameEntityFromScheduleDTO(final ScheduleDto schedule) {
 

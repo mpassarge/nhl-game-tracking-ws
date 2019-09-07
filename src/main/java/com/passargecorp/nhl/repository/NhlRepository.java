@@ -1,6 +1,5 @@
 package com.passargecorp.nhl.repository;
 
-import com.passargecorp.nhl.dto.GameDto;
 import com.passargecorp.nhl.dto.ScheduleDto;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -18,12 +17,11 @@ public class NhlRepository {
         this.restTemplate = restTemplateBuilder.build();
     }
 
-    public GameDto getGame(final String gameId) {
+    public ScheduleDto getGame(final String gameId) {
 
         final String url = "https://statsapi.web.nhl.com/api/v1/schedule?gamePk=" + gameId;
         final ScheduleDto schedule = restTemplate.getForObject(url, ScheduleDto.class);
 
-        log.info("Retrieved Schedule: {}", schedule);
-        return new GameDto();
+        return schedule;
     }
 }
