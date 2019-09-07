@@ -5,13 +5,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@AllArgsConstructor
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString
-public class GameDto {
+public class StatusDto {
 
-    private String gamePk;
-    private TeamsDto teams;
-    private StatusDto status;
+    private String detailedState;
 }
