@@ -25,6 +25,12 @@
 
     <dependencies>
 
+        <!-- Common -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
         <!-- Spring  -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
