@@ -4,13 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-public class GameEntity {
+public class StatusEntity {
 
-    private String gameId;
-    private TeamEntity awayTeam;
-    private TeamEntity homeTeam;
-    private StatusEntity status;
+    private String state;
 }
