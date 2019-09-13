@@ -1,2 +1,6 @@
 server:
   port: 9080
+spring:
+  redis:
+    host: localhost
+    port: 6379
