@@ -1,13 +1,15 @@
 package com.passargecorp.nhl.service;
 
+import static com.passargecorp.nhl.entity.mapper.GameEntityMapper.gameEntityFromScheduleDTO;
+
 import com.passargecorp.nhl.dto.ScheduleDto;
 import com.passargecorp.nhl.entity.GameEntity;
-import com.passargecorp.nhl.entity.mapper.GameEntityMapper;
+import com.passargecorp.nhl.repository.CacheRepository;
 import com.passargecorp.nhl.repository.NhlRepository;
+import java.util.Optional;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.Validate;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 @Log4j2
@@ -15,15 +17,21 @@ import org.springframework.stereotype.Service;
 @Service
 public class NhlService {
 
-    private NhlRepository nhlRepository;
+    private static final String REDIS_KEY = "game-tracking";
 
-    @Cacheable(cacheNames = "game-tracking", key = "#gameId", unless = "#result == null")
+    private final CacheRepository cacheRepository;
+    private final NhlRepository nhlRepository;
+
     public GameEntity getGameById(final String gameId) {
 
-        final ScheduleDto scheduleDto = nhlRepository.getGame(gameId);
-        validateScheduleDto(scheduleDto);
-        final GameEntity game = GameEntityMapper.gameEntityFromScheduleDTO(scheduleDto);
-        log.info("{}", game);
+        final Optional<GameEntity> cachedGame = cacheRepository.get(gameId);
+
+        if(cachedGame.isPresent()) {
+            return cachedGame.get();
+        }
+
+        final GameEntity game = getEntityFromNhlRepository(gameId);
+        cacheRepository.save(game);
 
         return game;
     }
@@ -33,5 +41,12 @@ public class NhlService {
         Validate.isTrue(scheduleDto.getTotalItems() == 1, "Multiple events retrieved");
         Validate.isTrue(scheduleDto.getDates().get(0).getTotalItems() == 1,
                         "Multiple game retrieved");
+    }
+
+    private GameEntity getEntityFromNhlRepository(final String gameId) {
+
+        final ScheduleDto scheduleDto = nhlRepository.getGame(gameId);
+        validateScheduleDto(scheduleDto);
+        return gameEntityFromScheduleDTO(scheduleDto);
     }
 }
