@@ -24,13 +24,14 @@ public class CacheRepository {
 
     public void save(final GameEntity gameEntity) {
 
-        final String gameString;
-        try {
-            gameString = objectMapper.writeValueAsString(gameEntity);
-            jedis.set(buildCacheKey(gameEntity.getGameId()), gameString);
-        } catch(JsonProcessingException e) {
-            log.error("Error serializing game entity", e);
-            throw new GameTrackingException("Error serializing game entity");
+        if(!gameEntity.getStatus().isGameFinal()) {
+            try {
+                final String gameString = objectMapper.writeValueAsString(gameEntity);
+                jedis.set(buildCacheKey(gameEntity.getGameId()), gameString);
+            } catch(JsonProcessingException e) {
+                log.error("Error serializing game entity", e);
+                throw new GameTrackingException("Error serializing game entity");
+            }
         }
     }
 
