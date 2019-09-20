@@ -6,7 +6,6 @@ import com.passargecorp.nhl.dto.ScheduleDto;
 import com.passargecorp.nhl.entity.GameEntity;
 import com.passargecorp.nhl.repository.CacheRepository;
 import com.passargecorp.nhl.repository.NhlRepository;
-import java.util.Optional;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.Validate;
@@ -24,10 +23,10 @@ public class NhlService {
 
     public GameEntity getGameById(final String gameId) {
 
-        final Optional<GameEntity> cachedGame = cacheRepository.get(gameId);
+        final GameEntity cachedGame = cacheRepository.get(gameId);
 
-        if(cachedGame.isPresent()) {
-            return cachedGame.get();
+        if(cachedGame != null) {
+            return cachedGame;
         }
 
         final GameEntity game = getEntityFromNhlRepository(gameId);

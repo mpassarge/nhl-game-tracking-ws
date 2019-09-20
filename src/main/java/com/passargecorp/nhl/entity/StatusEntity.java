@@ -1,5 +1,7 @@
 package com.passargecorp.nhl.entity;
 
+import static org.apache.commons.lang3.StringUtils.startsWith;
+
 import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,5 +21,10 @@ public class StatusEntity implements Serializable {
     public boolean isGameFinal() {
 
         return "Final".equals(state);
+    }
+
+    public boolean isGameInProgress() {
+
+        return startsWith(state, "In Progress");
     }
 }
